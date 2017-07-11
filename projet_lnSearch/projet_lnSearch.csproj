@@ -47,6 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="application\Controleur.cs" />
+    <Compile Include="application\EtatApp.cs" />
+    <Compile Include="donnees\DataXML.cs" />
+    <Compile Include="donnees\FiltreXML.cs" />
+    <Compile Include="donnees\LecteurData.cs" />
+    <Compile Include="donnees\LecteurPDF.cs" />
+    <Compile Include="donnees\RedacteurData.cs" />
     <Compile Include="fenetres\Accueil.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,9 +94,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="donnees\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
