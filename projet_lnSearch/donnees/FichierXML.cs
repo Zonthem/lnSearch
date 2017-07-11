@@ -7,18 +7,15 @@ using System.Xml;
 
 namespace projet_lnSearch.donnees {
     /// <summary>
-    /// Écrit le fichier XML de fitrage
+    /// Classe mere des classes XML
     /// </summary>
-    class FiltreXML : FichierXML {
-        private XmlDocument filtreXml;
+    class FichierXML {
 
-        private int NbFiltresEntres { get; set; }
-
-        public FiltreXML() : base() {
+        public FichierXML() {
 
         }
-
-        public bool AddFiltre() {
+        
+        public bool SaveXML() {
             return false;
         }
     }

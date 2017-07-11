@@ -50,6 +50,7 @@
     <Compile Include="application\Controleur.cs" />
     <Compile Include="application\EtatApp.cs" />
     <Compile Include="donnees\DataXML.cs" />
+    <Compile Include="donnees\FichierXML.cs" />
     <Compile Include="donnees\FiltreXML.cs" />
     <Compile Include="donnees\LecteurData.cs" />
     <Compile Include="donnees\LecteurPDF.cs" />
@@ -94,7 +95,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="donnees\data\Donnees.xml" />
+    <Content Include="donnees\data\Filtres.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

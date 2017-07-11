@@ -4,13 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace projet_lnSearch.donnees
-{
+namespace projet_lnSearch.donnees {
     /// <summary>
-    /// Créateur de la base XML à partir des PDF.
+    /// Classe de gestion des classes d'écriture des données.
     /// À n'utiliser que lors de la configuration
     /// </summary>
-    class RedacteurData
-    {
+    class RedacteurData {
+        private DataXML dXml;
+
+        private FiltreXML fXml;
+
+        private LecteurPDF lectPDF;
+
+        public RedacteurData() {
+
+        }
+
+        public bool SetFiltres() {
+            return false;
+        }
+
+        public bool SetDatas() {
+            return false;
+        }
     }
 }
