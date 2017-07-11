@@ -1,4 +1,5 @@
-﻿using System;
+﻿using projet_lnSearch.application;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,9 @@ namespace projet_lnSearch
 {
     public partial class Accueil : Form
     {
-        public Accueil()
+        public Accueil(Controleur c)
         {
+            //c.initFiltres();
             InitializeComponent();
         }
 
