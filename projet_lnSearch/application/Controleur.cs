@@ -35,6 +35,10 @@ namespace projet_lnSearch.application {
 
         }
 
+        internal void Recherche(Dictionary<string, string> valeursFiltres) {
+            Debug.Write(valeursFiltres);
+        }
+
         internal void initFiltres() {
             /*
              * Temporaire, création toute faite

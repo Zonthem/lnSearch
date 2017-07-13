@@ -9,6 +9,7 @@ namespace projet_lnSearch.application {
     public class VarUtiles {
 
         private static string cheminXML = "C:\\Users\\Zonthem\\Documents\\";
+        private static string comboValeurNulle = "[ Aucune valeur ]";
 
         public static string CheminXML {
             get {
@@ -17,6 +18,16 @@ namespace projet_lnSearch.application {
 
             set {
                 cheminXML = value;
+            }
+        }
+
+        public static string ComboValeurNulle {
+            get {
+                return comboValeurNulle;
+            }
+
+            set {
+                comboValeurNulle = value;
             }
         }
     }
