@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="application\Controleur.cs" />
     <Compile Include="application\EtatApp.cs" />
+    <Compile Include="application\VarUtiles.cs" />
     <Compile Include="donnees\DataXML.cs" />
     <Compile Include="donnees\FichierXML.cs" />
     <Compile Include="donnees\FiltreXML.cs" />
@@ -94,7 +95,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="donnees\data\Donnees.xml" />

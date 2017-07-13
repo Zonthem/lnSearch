@@ -10,11 +10,10 @@ namespace projet_lnSearch.donnees {
     /// Ecrit le fichier XML de data
     /// </summary>
     class DataXML : FichierXML {
-        private XmlDocument dataXml;
 
         private int NbDocumentsEntres { get; set; }
 
-        public DataXML() : base() {
+        public DataXML() : base("data.xml") {
         }
 
         public bool AddFichier() {

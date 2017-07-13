@@ -1,4 +1,5 @@
 ﻿using projet_lnSearch.donnees;
+using projet_lnSearch.fenetres;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,14 +17,40 @@ namespace projet_lnSearch.application {
 
         private LecteurPDF lectPDF;
 
+        private FiltreXML filtre;
+
+        private DataXML data;
+
+        private Accueil acc;
+
         public Controleur() {
-            string creation = ConfigurationManager.AppSettings["modeCeation"];
-            Debug.Write((creation==null ? "lol" : creation));
+            string creation = ConfigurationManager.AppSettings["modeCreation"] ?? "NON";
+            Debug.Write(creation);
+
+            if (creation.Equals("OUI")) {
+                lectPDF = new LecteurPDF(true);
+                filtre  = new FiltreXML();
+                data    = new DataXML();
+            }
+
         }
 
         internal void initFiltres() {
-            throw new NotImplementedException();
+            /*
+             * Temporaire, création toute faite
+             */
+             foreach(KeyValuePair<string, SortedSet<string>> element in filtre.ListeFiltres) {
+                if (element.Value.ElementAt(0).Equals("text")) {
+                    acc.AddFiltreTexte(element.Key);
+                } else {
+                    acc.AddFiltreCombo(element.Key, element.Value);
+                }
+            }
         }
 
+        public Accueil setAccueil(Accueil a) {
+            acc = a;
+            return acc;
+        }
     }
 }

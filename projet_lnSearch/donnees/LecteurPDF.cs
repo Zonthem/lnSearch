@@ -44,11 +44,14 @@ namespace projet_lnSearch.donnees {
         }
 
         /// <summary>
-        /// Lis le fichier selectionné pour récupérer les filtres
+        /// Lis le fichier selectionné pour récupérer les valeurs des filtres
         /// </summary>
         /// <returns>les filtres disponibles du fichier</returns>
-        public string LireDonneesUnique() {
-            return "";
+        public Dictionary<string, string> LireDonneesUnique() {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            dict.Add("Nom", "nom du doc");
+            dict.Add("Code", "192 168 0 1");
+            return dict;
         }
 
         /// <summary>

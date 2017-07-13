@@ -11,5 +11,8 @@ namespace projet_lnSearch.donnees {
     /// </summary>
     class LecteurData : FichierXML {
 
+        public LecteurData() : base("data.xml") {
+
+        }
     }
 }

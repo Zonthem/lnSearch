@@ -1,4 +1,5 @@
 ﻿
+using projet_lnSearch.fenetres;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,9 @@ namespace projet_lnSearch.application
         /// </summary>
         static void Main()
         {
-            c = new Controleur();
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            c = new Controleur();
             Application.Run(new Accueil(c));
         }
     }

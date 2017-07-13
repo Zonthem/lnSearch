@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using projet_lnSearch.application;
+using System.Diagnostics;
 
 namespace projet_lnSearch.donnees {
     /// <summary>
@@ -11,8 +13,15 @@ namespace projet_lnSearch.donnees {
     /// </summary>
     class FichierXML {
 
-        public FichierXML() {
+        protected XmlDocument document;
 
+        public FichierXML(string nom) {
+            document = new XmlDocument();
+            try {
+                document.Load(VarUtiles.CheminXML + nom);
+            } catch (Exception ex) {
+                Debug.Write(ex.Message);
+            }
         }
         
         public bool SaveXML() {
