@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace projet_lnSearch.donnees {
     /// <summary>
-    /// Écrit le fichier XML de fitrage
+    /// Écrit et lit le fichier XML de fitrage
     /// </summary>
     class FiltreXML : FichierXML {
 
@@ -15,18 +15,23 @@ namespace projet_lnSearch.donnees {
 
         public Dictionary<string, SortedSet<string>> ListeFiltres { get; }
 
+        /// <summary>
+        /// Contructeur en lecture seule, ne crée pas de fichier si il n'existe pas
+        /// </summary>
         public FiltreXML() : base("filtres.xml") {
             ListeFiltres = new Dictionary<string, SortedSet<string>>();
-            foreach(XmlNode node in document.GetElementsByTagName("filtre")) {
+            SortedSet<string> sset;
+
+            foreach (XmlNode node in document.GetElementsByTagName("filtre")) {
                 if (node.Attributes["value"].Value.Equals("text")) {
 
-                    SortedSet<string> sset = new SortedSet<string>();
+                    sset = new SortedSet<string>();
                     sset.Add("text");
                     ListeFiltres.Add(node.Attributes["key"].Value, sset);
 
                 } else if (node.Attributes["value"].Value.Equals("combo")) {
 
-                    SortedSet<string> sset = new SortedSet<string>();
+                    sset = new SortedSet<string>();
                     sset.Add("combo");
                     foreach (XmlNode ssNode in node.ChildNodes) {
                         sset.Add(ssNode.Attributes["value"].Value);

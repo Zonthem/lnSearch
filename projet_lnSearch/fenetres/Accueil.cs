@@ -61,9 +61,10 @@ namespace projet_lnSearch.fenetres {
             ComboBox cmb = new ComboBox();
             cmb.FormattingEnabled = true;
             values.Remove("combo");
-            cmb.Items.Add(VarUtiles.ComboValeurNulle.Cast<object>());
+            cmb.Items.Add(VarUtiles.ComboValeurNulle);
             cmb.Items.AddRange(values.Cast<Object>().ToArray());
             cmb.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmb.SelectedIndex = 0;
             cmb.Location = new Point(200, (filtres.Count + 1) * 35);
             cmb.Name = "comboBox" + key;
             cmb.Size = new Size(boxFiltres.Width - 275, 24);

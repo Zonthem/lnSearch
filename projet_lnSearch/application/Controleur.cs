@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace projet_lnSearch.application {
@@ -16,6 +17,8 @@ namespace projet_lnSearch.application {
     public class Controleur {
 
         private LecteurPDF lectPDF;
+
+        private LecteurXML lectXML;
 
         private FiltreXML filtre;
 
@@ -28,15 +31,17 @@ namespace projet_lnSearch.application {
             Debug.Write(creation);
 
             if (creation.Equals("OUI")) {
-                lectPDF = new LecteurPDF(true);
-                filtre  = new FiltreXML();
-                data    = new DataXML();
+                lectPDF     = new LecteurPDF(true);
+                lectXML     = new LecteurXML();
+                filtre      = new FiltreXML();
+                data        = new DataXML();
             }
 
         }
 
         internal void Recherche(Dictionary<string, string> valeursFiltres) {
-            Debug.Write(valeursFiltres);
+            Thread thFiltrage = new Thread(new ParameterizedThreadStart(lectXML.Filtrer));
+            thFiltrage.Start(valeursFiltres);
         }
 
         internal void initFiltres() {

@@ -54,7 +54,7 @@
     <Compile Include="donnees\DataXML.cs" />
     <Compile Include="donnees\FichierXML.cs" />
     <Compile Include="donnees\FiltreXML.cs" />
-    <Compile Include="donnees\LecteurData.cs" />
+    <Compile Include="donnees\LecteurXML.cs" />
     <Compile Include="donnees\LecteurPDF.cs" />
     <Compile Include="donnees\RedacteurData.cs" />
     <Compile Include="fenetres\Accueil.cs">
