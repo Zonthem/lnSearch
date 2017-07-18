@@ -18,7 +18,7 @@ namespace projet_lnSearch.donnees {
         public FichierXML(string nom) {
             document = new XmlDocument();
             try {
-                document.Load(VarUtiles.CheminXML + nom);
+                document.Load(VarUtiles.CheminApp + nom);
             } catch (Exception ex) {
                 Debug.Write(ex.Message);
             }

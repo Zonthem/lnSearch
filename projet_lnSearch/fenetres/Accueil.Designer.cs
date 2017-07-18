@@ -35,6 +35,8 @@ namespace projet_lnSearch.fenetres
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.filtrePanel = new System.Windows.Forms.Panel();
+            this.boxFiltres.SuspendLayout();
             this.SuspendLayout();
             // 
             // boxFiltres
@@ -42,6 +44,7 @@ namespace projet_lnSearch.fenetres
             this.boxFiltres.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.boxFiltres.Controls.Add(this.filtrePanel);
             this.boxFiltres.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boxFiltres.Location = new System.Drawing.Point(184, 39);
             this.boxFiltres.Name = "boxFiltres";
@@ -91,6 +94,17 @@ namespace projet_lnSearch.fenetres
             this.button3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.button3.UseVisualStyleBackColor = false;
             // 
+            // filtrePanel
+            // 
+            this.filtrePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.filtrePanel.AutoScroll = true;
+            this.filtrePanel.Location = new System.Drawing.Point(6, 22);
+            this.filtrePanel.Name = "filtrePanel";
+            this.filtrePanel.Size = new System.Drawing.Size(564, 442);
+            this.filtrePanel.TabIndex = 0;
+            // 
             // Accueil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -104,6 +118,8 @@ namespace projet_lnSearch.fenetres
             this.Name = "Accueil";
             this.Text = "lnSearch";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Accueil_KeyPress);
+            this.boxFiltres.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -116,6 +132,7 @@ namespace projet_lnSearch.fenetres
         private ControlCollection filtres;
         private ControlCollection labelFiltres;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Panel filtrePanel;
     }
 }
 

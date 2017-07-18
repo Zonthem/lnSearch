@@ -64,15 +64,20 @@
       <DependentUpon>Accueil.cs</DependentUpon>
     </Compile>
     <Compile Include="application\Runner.cs" />
+    <Compile Include="metier\Fichier.cs" />
+    <Compile Include="metier\Resultat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="fenetres\Resultat.cs">
+    <Compile Include="fenetres\FenResultat.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fenetres\Resultat.Designer.cs">
-      <DependentUpon>Resultat.cs</DependentUpon>
+    <Compile Include="fenetres\FenResultat.Designer.cs">
+      <DependentUpon>FenResultat.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="fenetres\Accueil.resx">
       <DependentUpon>Accueil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fenetres\FenResultat.resx">
+      <DependentUpon>FenResultat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -102,6 +107,8 @@
   <ItemGroup>
     <Content Include="donnees\data\Donnees.xml" />
     <Content Include="donnees\data\Filtres.xml" />
+    <None Include="Resources\pdfTr.png" />
+    <None Include="Resources\loupeTr.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

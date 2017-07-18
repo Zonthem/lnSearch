@@ -24,13 +24,9 @@ namespace projet_lnSearch.application {
             Application.SetCompatibleTextRenderingDefault(false);
 
             c = new Controleur();
-            _bg.DoWork += bg_DoWork;
+            _bg.DoWork += c.bg_DoWork;
 
             Application.Run(new Accueil(c));
-        }
-
-        static void bg_DoWork(object sender, DoWorkEventArgs e) {
-            Debug.Write(e.Argument);
         }
     }
 }

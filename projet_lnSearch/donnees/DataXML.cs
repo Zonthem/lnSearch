@@ -13,7 +13,7 @@ namespace projet_lnSearch.donnees {
 
         private int NbDocumentsEntres { get; set; }
 
-        public DataXML() : base("data.xml") {
+        public DataXML() : base("conf\\data.xml") {
         }
 
         public bool AddFichier() {

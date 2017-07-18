@@ -18,7 +18,7 @@ namespace projet_lnSearch.donnees {
         /// <summary>
         /// Contructeur en lecture seule, ne crée pas de fichier si il n'existe pas
         /// </summary>
-        public FiltreXML() : base("filtres.xml") {
+        public FiltreXML() : base("conf\\filtres.xml") {
             ListeFiltres = new Dictionary<string, SortedSet<string>>();
             SortedSet<string> sset;
 

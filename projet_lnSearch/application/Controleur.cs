@@ -2,6 +2,7 @@
 using projet_lnSearch.fenetres;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
@@ -60,6 +61,15 @@ namespace projet_lnSearch.application {
         public Accueil setAccueil(Accueil a) {
             acc = a;
             return acc;
+        }
+
+        public void bg_DoWork(object sender, DoWorkEventArgs e) {
+            if (e.Argument.Equals("fin")) {
+                FenResultat resultatForm = new FenResultat(lectXML.Res);
+                resultatForm.ShowDialog();
+            } else if (e.Argument.Equals("erreur")) {
+                Debug.Write(lectXML.Erreur);
+            }
         }
     }
 }

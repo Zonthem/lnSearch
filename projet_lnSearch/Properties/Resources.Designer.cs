@@ -59,5 +59,15 @@ namespace projet_lnSearch.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pdfTr {
+            get {
+                object obj = ResourceManager.GetObject("pdfTr", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

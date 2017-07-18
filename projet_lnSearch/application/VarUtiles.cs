@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace projet_lnSearch.application {
+﻿namespace projet_lnSearch.application {
 
     public class VarUtiles {
 
-        private static string cheminXML = "C:\\Users\\Zonthem\\Documents\\";
+        private static string cheminApp = "C:\\Users\\Zonthem\\Documents\\";
         private static string comboValeurNulle = "[ Aucune valeur ]";
 
-        public static string CheminXML {
+        public static string CheminApp {
             get {
-                return cheminXML;
+                return cheminApp;
             }
 
             set {
-                cheminXML = value;
+                cheminApp = value;
             }
         }
 

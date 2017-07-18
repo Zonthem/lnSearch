@@ -1,12 +1,9 @@
 ﻿using projet_lnSearch.application;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace projet_lnSearch.fenetres {
@@ -43,9 +40,10 @@ namespace projet_lnSearch.fenetres {
             tb.Size = new Size(boxFiltres.Width-275, 23);
             tb.Anchor = ((((AnchorStyles.Top | AnchorStyles.Left) 
             | AnchorStyles.Right)));
+            tb.KeyPress += Accueil_KeyPress;
             tb.TabIndex = filtres.Count;
             filtres.Add(tb);
-            boxFiltres.Controls.Add(tb);
+            filtrePanel.Controls.Add(tb);
 
             Label lbl = new Label();
             lbl.AutoSize = true;
@@ -54,7 +52,7 @@ namespace projet_lnSearch.fenetres {
             lbl.Size = new Size(46, 16);
             lbl.Text = key;
             labelFiltres.Add(lbl);
-            boxFiltres.Controls.Add(lbl);
+            filtrePanel.Controls.Add(lbl);
         }
 
         internal void AddFiltreCombo(string key, SortedSet<string> values) {
@@ -70,9 +68,10 @@ namespace projet_lnSearch.fenetres {
             cmb.Size = new Size(boxFiltres.Width - 275, 24);
             cmb.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
             | AnchorStyles.Right)));
+            cmb.KeyPress += Accueil_KeyPress;
             cmb.TabIndex = filtres.Count;
             filtres.Add(cmb);
-            boxFiltres.Controls.Add(cmb);
+            filtrePanel.Controls.Add(cmb);
 
             Label lbl = new Label();
             lbl.AutoSize = true;
@@ -81,7 +80,13 @@ namespace projet_lnSearch.fenetres {
             lbl.Size = new Size(46, 16);
             lbl.Text = key;
             labelFiltres.Add(lbl);
-            boxFiltres.Controls.Add(lbl);
+            filtrePanel.Controls.Add(lbl);
+        }
+
+        private void Accueil_KeyPress(object sender, KeyPressEventArgs e) {
+            if (e.KeyChar == (char)Keys.Enter) {
+                button1.PerformClick();
+            }
         }
     }
 }
