@@ -38,6 +38,12 @@ namespace projet_lnSearch.donnees {
                     }
                     ListeFiltres.Add(node.Attributes["key"].Value, sset);
 
+                } else if (node.Attributes["value"].Value.Equals("date")) {
+
+                    sset = new SortedSet<string>();
+                    sset.Add("date");
+                    ListeFiltres.Add(node.Attributes["key"].Value, sset);
+
                 }
             } 
         }

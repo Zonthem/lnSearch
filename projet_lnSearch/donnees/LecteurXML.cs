@@ -63,9 +63,13 @@ namespace projet_lnSearch.donnees {
                 }
 
                 Runner._bg.RunWorkerAsync("fin");
+
             } catch (Exception ex) {
+
                 Erreur = ex.Message;
-                Runner._bg.RunWorkerAsync("erreur");
+                if (!Runner._bg.IsBusy) {
+                    Runner._bg.RunWorkerAsync("erreur");
+                }
             }
         }
 

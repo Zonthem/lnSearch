@@ -6,9 +6,8 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace projet_lnSearch.application {
     /// <summary>
@@ -26,6 +25,8 @@ namespace projet_lnSearch.application {
         private DataXML data;
 
         private Accueil acc;
+
+        private FenResultat resultatForm;
 
         public Controleur() {
             string creation = ConfigurationManager.AppSettings["modeCreation"] ?? "NON";
@@ -52,8 +53,10 @@ namespace projet_lnSearch.application {
              foreach(KeyValuePair<string, SortedSet<string>> element in filtre.ListeFiltres) {
                 if (element.Value.ElementAt(0).Equals("text")) {
                     acc.AddFiltreTexte(element.Key);
-                } else {
+                } else if (element.Value.ElementAt(0).Equals("combo")) {
                     acc.AddFiltreCombo(element.Key, element.Value);
+                } else if (element.Value.ElementAt(0).Equals("date")) {
+                    acc.AddFiltreDate(element.Key);
                 }
             }
         }
@@ -65,8 +68,14 @@ namespace projet_lnSearch.application {
 
         public void bg_DoWork(object sender, DoWorkEventArgs e) {
             if (e.Argument.Equals("fin")) {
-                FenResultat resultatForm = new FenResultat(lectXML.Res);
-                resultatForm.ShowDialog();
+                if (lectXML.Res.Count == 0) {
+                    MessageBox.Show("Aucun document trouvé !");
+                    return;
+                }
+                acc.Invoke(new Action(() => {
+                    new FenResultat(lectXML.Res).Show();
+                }));
+                
             } else if (e.Argument.Equals("erreur")) {
                 Debug.Write(lectXML.Erreur);
             }

@@ -1,15 +1,16 @@
-﻿using System.Reflection;
+﻿using System.Resources;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("projet_lnSearch")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("LnSearch")]
+[assembly: AssemblyDescription("Outil de navigation dans une base de fichiers PDF")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("LNSE")]
-[assembly: AssemblyProduct("projet_lnSearch")]
+[assembly: AssemblyProduct("lnSearch")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -34,3 +35,5 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.1.*")]
 [assembly: AssemblyFileVersion("1.0")]
+[assembly: NeutralResourcesLanguage("")]
+

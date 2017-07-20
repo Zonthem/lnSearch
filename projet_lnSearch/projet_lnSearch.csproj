@@ -33,10 +33,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>lnSearch.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>projet_lnSearch.application.Runner</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +54,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="application\Controleur.cs" />
@@ -64,6 +73,12 @@
       <DependentUpon>Accueil.cs</DependentUpon>
     </Compile>
     <Compile Include="application\Runner.cs" />
+    <Compile Include="fenetres\FenAide.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fenetres\FenAide.Designer.cs">
+      <DependentUpon>FenAide.cs</DependentUpon>
+    </Compile>
     <Compile Include="metier\Fichier.cs" />
     <Compile Include="metier\Resultat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +90,9 @@
     </Compile>
     <EmbeddedResource Include="fenetres\Accueil.resx">
       <DependentUpon>Accueil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fenetres\FenAide.resx">
+      <DependentUpon>FenAide.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fenetres\FenResultat.resx">
       <DependentUpon>FenResultat.cs</DependentUpon>
@@ -107,6 +125,10 @@
   <ItemGroup>
     <Content Include="donnees\data\Donnees.xml" />
     <Content Include="donnees\data\Filtres.xml" />
+    <Content Include="lnSearch.ico" />
+    <None Include="Resources\loupeTr1.png" />
+    <None Include="Resources\lnse.png" />
+    <None Include="Resources\blank.bmp" />
     <None Include="Resources\pdfTr.png" />
     <None Include="Resources\loupeTr.png" />
   </ItemGroup>

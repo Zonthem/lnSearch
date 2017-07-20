@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace projet_lnSearch.metier {
 
@@ -24,9 +20,12 @@ namespace projet_lnSearch.metier {
             Headers = new List<string>();
             Headers.Add("Nom");
             Headers.Add("Path");
+
+            indiceCourant = 0;
         }
 
         public Resultat(List<Dictionary<string, string>> entree) {
+            donnees = new List<Fichier>();
             Count = entree.Count;
             foreach (Dictionary<string,string> dict in entree) {
 
@@ -36,6 +35,15 @@ namespace projet_lnSearch.metier {
                     Headers = new List<string>(dict.Keys);
                 }
             }
+
+            indiceCourant = 0;
+        }
+
+        internal void SetPage(int page) {
+            indiceCourant = 20 * (page-1);
+            if (indiceCourant > Count) {
+                throw new System.Exception("SetPage -> Out of bounds");
+            }
         }
 
         public void AddResultat(Dictionary<string,string> ajout) {
@@ -44,7 +52,7 @@ namespace projet_lnSearch.metier {
         }
 
         public Fichier Get() {
-            return donnees[indiceCourant];
+            return (Count < 1 ? null : donnees[indiceCourant]);
         }
 
         public bool Next() {
