@@ -1,4 +1,6 @@
-﻿using projet_lnSearch.application;
+﻿using PdfSharp.Pdf.IO;
+using projet_lnSearch.application;
+using projet_lnSearch.metier;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,10 +27,28 @@ namespace projet_lnSearch.fenetres {
 
         private void button1_Click(object sender, EventArgs e) {
             Dictionary<string, string> valeursFiltres = new Dictionary<string, string>();
+            string cle, val;
             for (int i = 0; i < filtres.Count; i++) {
-                string cle = (labelFiltres[i].Text.Equals(VarUtiles.ComboValeurNulle) ? "" : labelFiltres[i].Text);
+                cle = labelFiltres[i].Text;
 
-                string val = (filtres[i].Text.Equals("") ? "*" : filtres[i].Text);
+                if (filtres[i] is TextBox) {
+                    val = (filtres[i].Text.Equals("") ? "*" : filtres[i].Text);
+                } else if (filtres[i] is ComboBox) {
+                    val = (((ComboBox)filtres[i]).SelectedItem.Equals(VarUtiles.ComboValeurNulle) ? "" : ((ComboBox)filtres[i]).SelectedItem.ToString());
+                } else if (filtres[i] is DateSelecteur) {
+                    if (((DateSelecteur)filtres[i]).Operation.SelectedItem.Equals("Après")) {
+                        val = ">" + ((DateSelecteur)filtres[i]).Text;
+                    } else if (((DateSelecteur)filtres[i]).Operation.SelectedItem.Equals("Avant")) {
+                        val = "<" + ((DateSelecteur)filtres[i]).Text;
+                    } else if (((DateSelecteur)filtres[i]).Operation.SelectedItem.Equals("Entre")) {
+                        val = "&" + ((DateSelecteur)filtres[i]).Text + "=" + ((DateSelecteur)filtres[i]).Extremite.Text;
+                    } else {
+                        val = "";
+                    }
+                } else {
+                    val = "";
+                }
+                
 
                 valeursFiltres.Add(cle, val);
             }
@@ -39,7 +59,7 @@ namespace projet_lnSearch.fenetres {
             TextBox tb = new TextBox();
             tb.Location = new Point(200, (compteurF + 1)*35);
             tb.Name = "textBox" + key;
-            tb.Size = new Size(boxFiltres.Width-275, 23);
+            tb.Size = new Size(boxFiltres.Width-275, 24);
             tb.Anchor = ((((AnchorStyles.Top | AnchorStyles.Left) 
             | AnchorStyles.Right)));
             tb.KeyPress += Accueil_KeyPress;
@@ -88,22 +108,29 @@ namespace projet_lnSearch.fenetres {
         }
 
         internal void AddFiltreDate(string key) {
-            DateTimePicker dtp = new DateTimePicker();
-            dtp.Size = new Size(117, 24);
-            dtp.Location = new Point(200, 3 + (compteurF + 1) * 35);
+
+            DateSelecteur dtp = new DateSelecteur();
+            dtp.Size = new Size(boxFiltres.Width - 463, 24);
+            dtp.Location = new Point(200, (compteurF + 1) * 35);
             dtp.Format = DateTimePickerFormat.Short;
             dtp.Name = "DatePicker" + key;
+            dtp.Format = DateTimePickerFormat.Custom;
+            dtp.CustomFormat = "yyyymmdd";
+            dtp.KeyPress += Accueil_KeyPress;
             dtp.TabIndex = filtres.Count;
             filtres.Add(dtp);
             filtrePanel.Controls.Add(dtp);
 
             DateTimePicker last = new DateTimePicker();
-            last.Size = new Size(117, 24);
-            last.Location = new Point(430, 3 + (compteurF + 1) * 35);
+            last.Size = new Size(boxFiltres.Width - 463, 24);
+            last.Location = new Point(boxFiltres.Width - 75 - dtp.Size.Width, (compteurF + 1) * 35);
             last.Format = DateTimePickerFormat.Short;
-            last.Name = "DatePicker" + key;
+            last.Name = "DateBox" + key;
+            last.Format = DateTimePickerFormat.Custom;
+            last.CustomFormat = "yyyymmdd";
+            last.KeyPress += Accueil_KeyPress;
             last.TabIndex = filtres.Count;
-            filtres.Add(last);
+            last.Visible = false;
             filtrePanel.Controls.Add(last);
 
             ComboBox cmb = new ComboBox();
@@ -113,14 +140,17 @@ namespace projet_lnSearch.fenetres {
             cmb.Items.Add("Entre");
             cmb.DropDownStyle = ComboBoxStyle.DropDownList;
             cmb.SelectedIndex = 0;
-            cmb.Location = new Point(340, (compteurF + 1) * 35);
-            cmb.Name = "comboBox" + key;
-            cmb.Size = new Size(70, 24);
+            cmb.Size = new Size(62, 24);
+            cmb.Location = new Point(dtp.Location.X + dtp.Size.Width + 6, (compteurF + 1) * 35);
+            cmb.Name = "Box" + key;
             cmb.KeyPress += Accueil_KeyPress;
             cmb.TabIndex = filtres.Count;
-            filtres.Add(cmb);
+            cmb.SelectedValueChanged += dateComboChange;
             filtrePanel.Controls.Add(cmb);
 
+            dtp.Extremite = last;
+            dtp.Operation = cmb;
+            
             compteurF++;
 
             Label lbl = new Label();
@@ -131,6 +161,29 @@ namespace projet_lnSearch.fenetres {
             lbl.Text = key;
             labelFiltres.Add(lbl);
             filtrePanel.Controls.Add(lbl);
+        }
+
+        private void OuvreFenConfig() {
+            this.Invoke(new Action(() => {
+                new FenConfig(c.getFiltresPossibles(), c.getAffichagesPossibles()).ShowDialog();
+            }));
+        }
+
+        internal void AfficheMessage(string msg) {
+            MessageBox.Show(msg);
+        }
+
+        private void dateComboChange(object sender, EventArgs e) {
+            foreach (Control c in filtres) {
+                if (c is DateSelecteur && ((DateSelecteur)c).Operation.Equals((ComboBox)sender)) {
+                    if (((DateSelecteur)c).Operation.SelectedItem.Equals("Entre")) {
+                        ((DateSelecteur)c).Extremite.Visible = true;
+                    } else {
+                        ((DateSelecteur)c).Extremite.Visible = false;
+                    }
+                }
+            }
+            
         }
 
         private void Accueil_KeyPress(object sender, KeyPressEventArgs e) {
@@ -152,6 +205,12 @@ namespace projet_lnSearch.fenetres {
                 } else if (c is ComboBox) {
                     ((ComboBox)c).SelectedIndex = 0;
                 }
+            }
+        }
+
+        private void Accueil_Load(object sender, EventArgs e) {
+            if (c.ModeCreation && MessageBox.Show("Voulez-vous configurer l'outil ?", "Initialisation", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                OuvreFenConfig();
             }
         }
     }

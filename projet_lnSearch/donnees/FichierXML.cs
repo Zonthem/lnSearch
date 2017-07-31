@@ -15,12 +15,13 @@ namespace projet_lnSearch.donnees {
 
         protected XmlDocument document;
 
-        public FichierXML(string nom) {
+        public FichierXML(string nom, bool creation = false) {
             document = new XmlDocument();
             try {
                 document.Load(VarUtiles.CheminApp + nom);
             } catch (Exception ex) {
-                Debug.Write(ex.Message);
+                Debug.Write(ex.Message + Environment.NewLine);
+                document = null;
             }
         }
         

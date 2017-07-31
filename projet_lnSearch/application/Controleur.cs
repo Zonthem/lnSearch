@@ -18,38 +18,40 @@ namespace projet_lnSearch.application {
 
         private LecteurPDF lectPDF;
 
-        private LecteurXML lectXML;
+        private LecteurDataXML data;
 
-        private FiltreXML filtre;
+        private LecteurFiltreXML filtre;
 
-        private DataXML data;
+        private RedacteurXML redacteur;
 
         private Accueil acc;
 
-        private FenResultat resultatForm;
+        public bool ModeCreation;
 
         public Controleur() {
             string creation = ConfigurationManager.AppSettings["modeCreation"] ?? "NON";
-            Debug.Write(creation);
 
             if (creation.Equals("OUI")) {
-                lectPDF     = new LecteurPDF(true);
-                lectXML     = new LecteurXML();
-                filtre      = new FiltreXML();
-                data        = new DataXML();
+                lectPDF     = new LecteurPDF(false);
+                data        = new LecteurDataXML();
+                filtre      = new LecteurFiltreXML();
+                redacteur   = new RedacteurXML();
+                ModeCreation = true;
+            } else {
+                lectPDF     = new LecteurPDF(false);
+                data        = new LecteurDataXML();
+                filtre      = new LecteurFiltreXML();
+                ModeCreation = false;
             }
 
         }
 
         internal void Recherche(Dictionary<string, string> valeursFiltres) {
-            Thread thFiltrage = new Thread(new ParameterizedThreadStart(lectXML.Filtrer));
+            Thread thFiltrage = new Thread(new ParameterizedThreadStart(data.Filtrer));
             thFiltrage.Start(valeursFiltres);
         }
 
         internal void initFiltres() {
-            /*
-             * Temporaire, création toute faite
-             */
              foreach(KeyValuePair<string, SortedSet<string>> element in filtre.ListeFiltres) {
                 if (element.Value.ElementAt(0).Equals("text")) {
                     acc.AddFiltreTexte(element.Key);
@@ -68,17 +70,35 @@ namespace projet_lnSearch.application {
 
         public void bg_DoWork(object sender, DoWorkEventArgs e) {
             if (e.Argument.Equals("fin")) {
-                if (lectXML.Res.Count == 0) {
+                if (data.Res.Count == 0) {
                     MessageBox.Show("Aucun document trouvé !");
                     return;
                 }
                 acc.Invoke(new Action(() => {
-                    new FenResultat(lectXML.Res).Show();
+                    new FenResultat(data.Res).Show();
                 }));
                 
             } else if (e.Argument.Equals("erreur")) {
-                Debug.Write(lectXML.Erreur);
+                Debug.Write(data.Erreur);
+            } else if (e.Argument.Equals("ImporterDonnees")) {
+                acc.AfficheMessage(lectPDF.Err);
             }
+        }
+
+        /// <summary>
+        /// Recupere la liste des champs possibles pour afficher dans la datagrid
+        /// </summary>
+        /// <returns>bah, les champs dans une liste, sans format car string dans tous les cas</returns>
+        internal List<string> getAffichagesPossibles() {
+            return new List<string>();
+        }
+
+        /// <summary>
+        /// Recupere la liste des champs possibles sur lesquels filtrer les docs
+        /// </summary>
+        /// <returns>liste des filtres possibles, non typés (string)</returns>
+        internal List<string> getFiltresPossibles() {
+            return new List<string>();
         }
     }
 }

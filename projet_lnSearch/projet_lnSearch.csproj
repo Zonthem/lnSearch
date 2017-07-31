@@ -40,6 +40,14 @@
     <StartupObject>projet_lnSearch.application.Runner</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -60,12 +68,13 @@
     <Compile Include="application\Controleur.cs" />
     <Compile Include="application\EtatApp.cs" />
     <Compile Include="application\VarUtiles.cs" />
-    <Compile Include="donnees\DataXML.cs" />
+    <Compile Include="donnees\RedacteurDataXML.cs" />
     <Compile Include="donnees\FichierXML.cs" />
-    <Compile Include="donnees\FiltreXML.cs" />
-    <Compile Include="donnees\LecteurXML.cs" />
+    <Compile Include="donnees\LecteurFiltreXML.cs" />
+    <Compile Include="donnees\LecteurDataXML.cs" />
     <Compile Include="donnees\LecteurPDF.cs" />
-    <Compile Include="donnees\RedacteurData.cs" />
+    <Compile Include="donnees\RedacteurFiltreXML.cs" />
+    <Compile Include="donnees\RedacteurXML.cs" />
     <Compile Include="fenetres\Accueil.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +87,15 @@
     </Compile>
     <Compile Include="fenetres\FenAide.Designer.cs">
       <DependentUpon>FenAide.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fenetres\FenConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fenetres\FenConfig.Designer.cs">
+      <DependentUpon>FenConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="metier\DateSelecteur.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="metier\Fichier.cs" />
     <Compile Include="metier\Resultat.cs" />
@@ -94,6 +112,9 @@
     <EmbeddedResource Include="fenetres\FenAide.resx">
       <DependentUpon>FenAide.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="fenetres\FenConfig.resx">
+      <DependentUpon>FenConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fenetres\FenResultat.resx">
       <DependentUpon>FenResultat.cs</DependentUpon>
     </EmbeddedResource>
@@ -107,6 +128,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

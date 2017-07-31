@@ -1,8 +1,7 @@
-﻿using System;
+﻿using projet_lnSearch.application;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using System.IO;
 
 namespace projet_lnSearch.donnees {
     /// <summary>
@@ -11,28 +10,21 @@ namespace projet_lnSearch.donnees {
     class LecteurPDF {
         private bool enCreation;
 
-        private string rep;
+        public string Err { get; set; }
 
         private List<string> listeFichiers;
 
-        private int Nb;
-
-        public int NbDocuments {
-            get {
-                return Nb;
-            }
-            set {
-                Nb = value;
-            }
-        }
+        public int NbDocuments { get; set; }
 
         /// <summary>
         /// Constructeur
         /// </summary>
         /// <param name="creation">Vrai si l'objet sert à créer la base, faux s'il ne sert qu'à lire</param>
         /// <param name="chemin">Chemin du dossier racine des PDF</param>
-        public LecteurPDF(bool creation, string chemin = "/data/") {
+        public LecteurPDF(bool creation) {
             enCreation = creation;
+            listeFichiers = ImporterDonnees(VarUtiles.CheminApp +  VarUtiles.Donnees);
+            Err = "";
         }
 
         /// <summary>
@@ -63,13 +55,31 @@ namespace projet_lnSearch.donnees {
         }
 
         /// <summary>
-        /// Enregistre les fichiers trouvés dans le répertoire fourni dans listeFichier
+        /// Remplis la classe avec les pdf dans le dossier fourni
         /// (tri récursif sur les sous-dossiers)
         /// </summary>
         /// <param name="cheminRelatif">Chemin à partir de l'application</param>
         /// <returns>Faux si une erreur est apparue, Vrai sinon</returns>
-        private bool ImporterDonnees(string cheminRelatif) {
-            return false;
+        private List<string> ImporterDonnees(string sDir) {
+            {
+                List<string> files = new List<string>();
+                try {
+                    foreach (string f in Directory.GetFiles(sDir)) {
+                        files.Add(f);
+                        NbDocuments++;
+                    }
+                    foreach (string d in Directory.GetDirectories(sDir)) {
+                        files.AddRange(ImporterDonnees(d));
+                    }
+                }
+                catch (System.Exception excpt) {
+                    Debug.Write("exception dans ImporterDonnees()");
+                    Err = excpt.Message;
+                    Runner._bg.RunWorkerAsync("ImporterDonnees");
+                }
+
+                return files;
+            };
         }
     }
 }

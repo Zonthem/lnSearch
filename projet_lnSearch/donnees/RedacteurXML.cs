@@ -9,15 +9,17 @@ namespace projet_lnSearch.donnees {
     /// Classe de gestion des classes d'écriture des données.
     /// À n'utiliser que lors de la configuration
     /// </summary>
-    class RedacteurData {
-        private DataXML dXml;
+    class RedacteurXML {
+        private RedacteurDataXML dXml;
 
-        private FiltreXML fXml;
+        private RedacteurFiltreXML fXml;
 
         private LecteurPDF lectPDF;
 
-        public RedacteurData() {
-
+        public RedacteurXML() {
+            dXml = new RedacteurDataXML();
+            fXml = new RedacteurFiltreXML();
+            lectPDF = new LecteurPDF(true);
         }
 
         public bool SetFiltres() {

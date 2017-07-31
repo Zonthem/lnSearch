@@ -2,19 +2,20 @@
 using projet_lnSearch.metier;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Xml;
 
 namespace projet_lnSearch.donnees {
     /// <summary>
     /// Parcours les fichiers XML bases pour en sortir les informations utiles
     /// </summary>
-    class LecteurXML : FichierXML {
+    class LecteurDataXML : FichierXML {
 
         internal Resultat Res { get; set; }
 
         internal string Erreur { get; private set; }
 
-        public LecteurXML() : base("conf\\data.xml") {
+        public LecteurDataXML(bool creation = false) : base(VarUtiles.Filtres + "data.xml", creation) {
 
         }
 
@@ -41,6 +42,8 @@ namespace projet_lnSearch.donnees {
                     nbCourant = 0;
 
                     //Check de chaque filtre avec interruption si necessaire
+                    //Valeur temporaire = valeur récupérée depuis le logiciel, pas celle présente dans le XML
+                    //
                     while (valide && nbCourant < nbFiltres) {
                         valeurs.TryGetValue(node.ChildNodes[nbCourant].Attributes["key"].Value, out valeurTemporaire);
                         if (FiltreAccepte(valeurTemporaire, node.ChildNodes[nbCourant].Attributes["value"].Value)) {
@@ -74,9 +77,23 @@ namespace projet_lnSearch.donnees {
         }
 
         private bool FiltreAccepte(string valeurTemporaire, string value) {
-            if (valeurTemporaire.Equals("*") || valeurTemporaire.Equals(VarUtiles.ComboValeurNulle)) return true;
+            if (valeurTemporaire.Equals("*") || valeurTemporaire.Equals("")) return true;
 
             if (valeurTemporaire.Equals(value)) return true;
+
+            if (valeurTemporaire[0].Equals("<") || valeurTemporaire[0].Equals(">") || valeurTemporaire[0].Equals("&")) {
+                if (valeurTemporaire[0].Equals("<")) {
+                    return (int.Parse(value) < int.Parse(valeurTemporaire.Substring(1)));
+                } else if (valeurTemporaire[0].Equals(">")) {
+                    return (int.Parse(value) > int.Parse(valeurTemporaire.Substring(1)));
+                } else {
+                    return ((int.Parse(value) < int.Parse(valeurTemporaire.Substring(1,8)) &&
+                        int.Parse(value) > int.Parse(valeurTemporaire.Substring(9, 8))) ||
+                        (int.Parse(value) > int.Parse(valeurTemporaire.Substring(1, 8)) &&
+                        int.Parse(value) < int.Parse(valeurTemporaire.Substring(9, 8)))
+                        );
+                }
+            }
 
             return false;
         }

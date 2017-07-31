@@ -135,6 +135,7 @@ namespace projet_lnSearch.fenetres
             this.Name = "Accueil";
             this.Text = "LnSearch";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Accueil_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Accueil_KeyPress);
             this.boxFiltres.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

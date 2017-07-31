@@ -1,8 +1,11 @@
 ﻿
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
 using projet_lnSearch.fenetres;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +25,12 @@ namespace projet_lnSearch.application {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            VarUtiles.Donnees = ConfigurationManager.AppSettings["cheminPdf"] ?? "data\\";
+            VarUtiles.Filtres = ConfigurationManager.AppSettings["cheminXml"] ?? "config\\";
+
+            int pdf = PdfReader.TestPdfFile("test.pdf");
+            Debug.Write(pdf);
 
             c = new Controleur();
             _bg.DoWork += c.bg_DoWork;

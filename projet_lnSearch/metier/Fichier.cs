@@ -44,7 +44,12 @@ namespace projet_lnSearch.metier {
                     return Path;
             }
 
-            return donneesComplementaires[key];
+            string s;
+            if (donneesComplementaires.TryGetValue(key,out s)) {
+                return s;
+            }
+
+            return "None";
         }
 
     }
