@@ -15,18 +15,35 @@ namespace projet_lnSearch.donnees {
 
         protected XmlDocument document;
 
+        protected string cheminDoc;
+
         public FichierXML(string nom, bool creation = false) {
             document = new XmlDocument();
+            cheminDoc = VarUtiles.CheminApp + nom;
             try {
-                document.Load(VarUtiles.CheminApp + nom);
+                if (!creation) {
+                    document.Load(cheminDoc); 
+                } else {
+                    XmlDeclaration xmlDeclaration = document.CreateXmlDeclaration("1.0", "UTF-8", null);
+                    XmlElement root = document.DocumentElement;
+                    document.InsertBefore(xmlDeclaration, root);
+
+                    document.Save(cheminDoc);
+                }
             } catch (Exception ex) {
                 Debug.Write(ex.Message + Environment.NewLine);
                 document = null;
             }
         }
         
-        public bool SaveXML() {
-            return false;
+        public bool Sauvegarder() {
+            try {
+                document.Save(cheminDoc);
+                return true;
+            } catch (Exception ex) {
+                Debug.Write(ex.Message + Environment.NewLine);
+                return false;
+            }
         }
     }
 }

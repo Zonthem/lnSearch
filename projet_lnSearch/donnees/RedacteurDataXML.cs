@@ -1,4 +1,5 @@
-﻿using System;
+﻿using projet_lnSearch.application;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace projet_lnSearch.donnees {
 
         private int NbDocumentsEntres { get; set; }
 
-        public RedacteurDataXML() : base("conf\\data.xml") {
+        public RedacteurDataXML() : base(VarUtiles.Conf + "data.xml") {
         }
 
         public bool AddFichier() {

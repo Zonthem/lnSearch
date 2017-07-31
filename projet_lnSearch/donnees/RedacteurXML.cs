@@ -12,13 +12,13 @@ namespace projet_lnSearch.donnees {
     class RedacteurXML {
         private RedacteurDataXML dXml;
 
-        private RedacteurFiltreXML fXml;
+        private RedacteurConfXML fXml;
 
         private LecteurPDF lectPDF;
 
         public RedacteurXML() {
             dXml = new RedacteurDataXML();
-            fXml = new RedacteurFiltreXML();
+            fXml = new RedacteurConfXML(new List<string>(), new List<string>());
             lectPDF = new LecteurPDF(true);
         }
 
@@ -28,6 +28,14 @@ namespace projet_lnSearch.donnees {
 
         public bool SetDatas() {
             return false;
+        }
+
+        internal List<string> getAffichagesPossibles() {
+            return new List<string>(lectPDF.LireDonneesUnique("a").Keys);
+        }
+
+        internal List<string> getFiltresPossibles() {
+            return new List<string>(lectPDF.LireDonneesUnique("f").Keys);
         }
     }
 }

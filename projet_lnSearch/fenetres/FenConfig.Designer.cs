@@ -162,6 +162,7 @@
             this.MinimumSize = new System.Drawing.Size(600, 500);
             this.Name = "FenConfig";
             this.Text = "LnSearch - Configuration";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FenConfig_FormClosed);
             this.groupChemins.ResumeLayout(false);
             this.groupChemins.PerformLayout();
             this.tabControleur.ResumeLayout(false);

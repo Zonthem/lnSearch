@@ -15,7 +15,7 @@ namespace projet_lnSearch.donnees {
 
         internal string Erreur { get; private set; }
 
-        public LecteurDataXML(bool creation = false) : base(VarUtiles.Filtres + "data.xml", creation) {
+        public LecteurDataXML(bool creation = false) : base(VarUtiles.Conf + "data.xml", creation) {
 
         }
 

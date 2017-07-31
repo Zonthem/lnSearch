@@ -21,7 +21,9 @@ namespace projet_lnSearch.fenetres {
             InitializeComponent();
             filtres = new ControlCollection(this);
             labelFiltres = new ControlCollection(this);
-            c.initFiltres();
+            if (!c.ModeCreation) {
+                c.initFiltres(); 
+            }
             this.c = c;
         }
 
@@ -211,6 +213,8 @@ namespace projet_lnSearch.fenetres {
         private void Accueil_Load(object sender, EventArgs e) {
             if (c.ModeCreation && MessageBox.Show("Voulez-vous configurer l'outil ?", "Initialisation", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                 OuvreFenConfig();
+            } else if (c.ModeCreation) {
+                Environment.Exit(Environment.ExitCode);
             }
         }
     }

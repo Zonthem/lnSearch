@@ -3,8 +3,8 @@
     public class VarUtiles {
 
         private static string cheminApp = "C:\\Users\\Zonthem\\Documents\\";
-        private static string filtres = "data\\";
-        private static string donnees = "config\\";
+        private static string filtres = "config\\";
+        private static string donnees = "data\\";
         private static string comboValeurNulle = "[ Aucune valeur ]";
 
         public static string CheminApp {
@@ -27,7 +27,7 @@
             }
         }
 
-        public static string Filtres {
+        public static string Conf {
             get {
                 return filtres;
             }

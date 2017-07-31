@@ -1,4 +1,7 @@
-﻿using projet_lnSearch.application;
+﻿using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
+using projet_lnSearch.application;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -28,21 +31,22 @@ namespace projet_lnSearch.donnees {
         }
 
         /// <summary>
-        /// Pointe le fichier PDF suivant tant qu'il y en a
-        /// </summary>
-        /// <returns>renvoi faux si il n'y a pas de PDF suivant, Vrai sinon</returns>
-        public bool nextPDF() {
-            return false;
-        }
-
-        /// <summary>
         /// Lis le fichier selectionné pour récupérer les valeurs des filtres
         /// </summary>
         /// <returns>les filtres disponibles du fichier</returns>
-        public Dictionary<string, string> LireDonneesUnique() {
+        public Dictionary<string, string> LireDonneesUnique(string mode) {
             Dictionary<string, string> dict = new Dictionary<string, string>();
-            dict.Add("Nom", "nom du doc");
-            dict.Add("Code", "192 168 0 1");
+            if (enCreation == true && NbDocuments > 0) {
+                try {
+                    PdfDocument doc = PdfReader.Open(listeFichiers[0]);
+                    foreach (KeyValuePair<string, PdfItem> kvp in doc.Info) {
+                        Debug.Write(kvp.Key + " - " + kvp.Value + Environment.NewLine);
+                    }
+                }
+                catch (Exception ex) {
+                    Debug.Write(ex.Message + Environment.NewLine);
+                }
+            }
             return dict;
         }
 
@@ -58,8 +62,8 @@ namespace projet_lnSearch.donnees {
         /// Remplis la classe avec les pdf dans le dossier fourni
         /// (tri récursif sur les sous-dossiers)
         /// </summary>
-        /// <param name="cheminRelatif">Chemin à partir de l'application</param>
-        /// <returns>Faux si une erreur est apparue, Vrai sinon</returns>
+        /// <param name="sDir">Chemin à partir de l'application</param>
+        /// <returns>la liste des fichiers</returns>
         private List<string> ImporterDonnees(string sDir) {
             {
                 List<string> files = new List<string>();

@@ -20,7 +20,7 @@ namespace projet_lnSearch.application {
 
         private LecteurDataXML data;
 
-        private LecteurFiltreXML filtre;
+        private LecteurConfXML filtre;
 
         private RedacteurXML redacteur;
 
@@ -33,14 +33,12 @@ namespace projet_lnSearch.application {
 
             if (creation.Equals("OUI")) {
                 lectPDF     = new LecteurPDF(false);
-                data        = new LecteurDataXML();
-                filtre      = new LecteurFiltreXML();
                 redacteur   = new RedacteurXML();
                 ModeCreation = true;
             } else {
                 lectPDF     = new LecteurPDF(false);
                 data        = new LecteurDataXML();
-                filtre      = new LecteurFiltreXML();
+                filtre      = new LecteurConfXML();
                 ModeCreation = false;
             }
 
@@ -90,7 +88,8 @@ namespace projet_lnSearch.application {
         /// </summary>
         /// <returns>bah, les champs dans une liste, sans format car string dans tous les cas</returns>
         internal List<string> getAffichagesPossibles() {
-            return new List<string>();
+            return redacteur.getAffichagesPossibles();
+            //return new List<string>();
         }
 
         /// <summary>
@@ -98,7 +97,10 @@ namespace projet_lnSearch.application {
         /// </summary>
         /// <returns>liste des filtres possibles, non typés (string)</returns>
         internal List<string> getFiltresPossibles() {
-            return new List<string>();
+            //return redacteur.getFiltresPossibles();
+            List<string> a = new List<string>();
+            a.Add("item");
+            return a;
         }
     }
 }

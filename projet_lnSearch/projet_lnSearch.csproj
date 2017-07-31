@@ -70,10 +70,10 @@
     <Compile Include="application\VarUtiles.cs" />
     <Compile Include="donnees\RedacteurDataXML.cs" />
     <Compile Include="donnees\FichierXML.cs" />
-    <Compile Include="donnees\LecteurFiltreXML.cs" />
+    <Compile Include="donnees\LecteurConfXML.cs" />
     <Compile Include="donnees\LecteurDataXML.cs" />
     <Compile Include="donnees\LecteurPDF.cs" />
-    <Compile Include="donnees\RedacteurFiltreXML.cs" />
+    <Compile Include="donnees\RedacteurConfXML.cs" />
     <Compile Include="donnees\RedacteurXML.cs" />
     <Compile Include="fenetres\Accueil.cs">
       <SubType>Form</SubType>

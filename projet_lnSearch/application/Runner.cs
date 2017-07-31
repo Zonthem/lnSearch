@@ -27,10 +27,7 @@ namespace projet_lnSearch.application {
             Application.SetCompatibleTextRenderingDefault(false);
 
             VarUtiles.Donnees = ConfigurationManager.AppSettings["cheminPdf"] ?? "data\\";
-            VarUtiles.Filtres = ConfigurationManager.AppSettings["cheminXml"] ?? "config\\";
-
-            int pdf = PdfReader.TestPdfFile("test.pdf");
-            Debug.Write(pdf);
+            VarUtiles.Conf = ConfigurationManager.AppSettings["cheminXml"] ?? "config\\";
 
             c = new Controleur();
             _bg.DoWork += c.bg_DoWork;
