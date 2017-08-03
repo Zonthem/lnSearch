@@ -1,4 +1,5 @@
-﻿using System;
+﻿using projet_lnSearch.metier;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,17 +10,29 @@ namespace projet_lnSearch.donnees {
     /// Classe de gestion des classes d'écriture des données.
     /// À n'utiliser que lors de la configuration
     /// </summary>
-    class RedacteurXML {
+    public class RedacteurXML {
         private RedacteurDataXML dXml;
 
         private RedacteurConfXML fXml;
 
         private LecteurPDF lectPDF;
 
+        private Dictionary<string, List<string>> listesCombo;
+
+        private Dictionary<string, string> listeFiltres;
+
+        private List<string> listeAffich;
+
+        private List<DonneesFichier> listeFichier;
+
         public RedacteurXML() {
             dXml = new RedacteurDataXML();
             fXml = new RedacteurConfXML(new List<string>(), new List<string>());
             lectPDF = new LecteurPDF(true);
+            listesCombo = new Dictionary<string, List<string>>();
+            listeFiltres = new Dictionary<string, string>();
+            listeAffich = new List<string>();
+            listeFichier = new List<Fichier>();
         }
 
         public bool SetFiltres() {
@@ -36,6 +49,23 @@ namespace projet_lnSearch.donnees {
 
         internal List<string> getFiltresPossibles() {
             return new List<string>(lectPDF.LireDonneesUnique("f").Keys);
+        }
+
+        internal void AddRechercheCombo(string cle) {
+            listesCombo.Add(cle, null);
+        }
+
+        internal void AddFiltre(string cle, string forme) {
+            listeFiltres.Add(cle, forme);
+        }
+
+        internal void AddAffich(string cle) {
+            listeAffich.Add(cle);
+        }
+
+        internal void StartProcessing() {
+            lectPDF.RechercheGlobale(new List<string>(listeFiltres.Keys), listeAffich, new List<string>(listesCombo.Keys),
+                out listesCombo);
         }
     }
 }

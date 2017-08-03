@@ -40,11 +40,18 @@ namespace projet_lnSearch.donnees {
                 try {
                     PdfDocument doc = PdfReader.Open(listeFichiers[0]);
                     foreach (KeyValuePair<string, PdfItem> kvp in doc.Info) {
-                        Debug.Write(kvp.Key + " - " + kvp.Value + Environment.NewLine);
+                        string key = kvp.Key;
+                        if (kvp.Key.Length > 0 && kvp.Key[0] == '/') {
+                            key = kvp.Key.Substring(1);
+                        }
+                        dict.Add(key, kvp.Value.ToString());
+                        doc.Close();
                     }
                 }
                 catch (Exception ex) {
                     Debug.Write(ex.Message + Environment.NewLine);
+                } finally {
+                    
                 }
             }
             return dict;
@@ -84,6 +91,33 @@ namespace projet_lnSearch.donnees {
 
                 return files;
             };
+        }
+
+        public List<string> FindAllValues(string key) {
+            if (listeFichiers.Count > 1) {
+                string cle = key;
+                List<string> lst = new List<string>();
+                PdfDocument doc = PdfReader.Open(listeFichiers[0]);
+
+                if (!doc.Info.Elements.ContainsKey(cle)) {
+                    cle = "/" + cle;
+                }
+
+                foreach (string file in listeFichiers) {
+                    doc = PdfReader.Open(file);
+                    if (doc.Info.Elements.ContainsKey(cle) && !lst.Contains(doc.Info.Elements[cle].ToString())) {
+                        lst.Add(doc.Info.Elements[cle].ToString());
+                    }
+                }
+
+                return new List<string>();
+            } else {
+                return new List<string>();
+            }
+        }
+
+        public void RechercheGlobale(List<string> filtres, List<string> affichs, List<string> combos, out Dictionary<string, List<string>> listesCombo) {
+            
         }
     }
 }

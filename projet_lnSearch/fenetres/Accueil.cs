@@ -167,7 +167,7 @@ namespace projet_lnSearch.fenetres {
 
         private void OuvreFenConfig() {
             this.Invoke(new Action(() => {
-                new FenConfig(c.getFiltresPossibles(), c.getAffichagesPossibles()).ShowDialog();
+                new FenConfig(c.getFiltresPossibles(), c.getAffichagesPossibles(), c .Redacteur).ShowDialog();
             }));
         }
 

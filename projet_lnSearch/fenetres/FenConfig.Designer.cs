@@ -35,10 +35,16 @@
             this.groupFiltres = new System.Windows.Forms.GroupBox();
             this.tabAffich = new System.Windows.Forms.TabPage();
             this.buttonValider = new System.Windows.Forms.Button();
+            this.panelFiltres = new System.Windows.Forms.Panel();
+            this.groupAffichages = new System.Windows.Forms.GroupBox();
+            this.panelAffichages = new System.Windows.Forms.Panel();
             this.groupChemins.SuspendLayout();
             this.tabControleur.SuspendLayout();
             this.tabChem.SuspendLayout();
             this.tabFilt.SuspendLayout();
+            this.groupFiltres.SuspendLayout();
+            this.tabAffich.SuspendLayout();
+            this.groupAffichages.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupChemins
@@ -124,6 +130,7 @@
             // 
             // groupFiltres
             // 
+            this.groupFiltres.Controls.Add(this.panelFiltres);
             this.groupFiltres.Location = new System.Drawing.Point(6, 6);
             this.groupFiltres.Name = "groupFiltres";
             this.groupFiltres.Size = new System.Drawing.Size(540, 379);
@@ -133,6 +140,7 @@
             // 
             // tabAffich
             // 
+            this.tabAffich.Controls.Add(this.groupAffichages);
             this.tabAffich.Location = new System.Drawing.Point(4, 22);
             this.tabAffich.Name = "tabAffich";
             this.tabAffich.Size = new System.Drawing.Size(552, 391);
@@ -149,6 +157,32 @@
             this.buttonValider.Text = "Valider";
             this.buttonValider.UseVisualStyleBackColor = true;
             this.buttonValider.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // panelFiltres
+            // 
+            this.panelFiltres.AutoScroll = true;
+            this.panelFiltres.Location = new System.Drawing.Point(6, 19);
+            this.panelFiltres.Name = "panelFiltres";
+            this.panelFiltres.Size = new System.Drawing.Size(528, 354);
+            this.panelFiltres.TabIndex = 0;
+            // 
+            // groupAffichages
+            // 
+            this.groupAffichages.Controls.Add(this.panelAffichages);
+            this.groupAffichages.Location = new System.Drawing.Point(6, 6);
+            this.groupAffichages.Name = "groupAffichages";
+            this.groupAffichages.Size = new System.Drawing.Size(540, 379);
+            this.groupAffichages.TabIndex = 1;
+            this.groupAffichages.TabStop = false;
+            this.groupAffichages.Text = "Affichage des résultats";
+            // 
+            // panelAffichages
+            // 
+            this.panelAffichages.AutoScroll = true;
+            this.panelAffichages.Location = new System.Drawing.Point(6, 19);
+            this.panelAffichages.Name = "panelAffichages";
+            this.panelAffichages.Size = new System.Drawing.Size(528, 354);
+            this.panelAffichages.TabIndex = 0;
             // 
             // FenConfig
             // 
@@ -168,6 +202,9 @@
             this.tabControleur.ResumeLayout(false);
             this.tabChem.ResumeLayout(false);
             this.tabFilt.ResumeLayout(false);
+            this.groupFiltres.ResumeLayout(false);
+            this.tabAffich.ResumeLayout(false);
+            this.groupAffichages.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -185,5 +222,8 @@
         private System.Windows.Forms.GroupBox groupFiltres;
         private System.Windows.Forms.TabPage tabAffich;
         private System.Windows.Forms.Button buttonValider;
+        private System.Windows.Forms.Panel panelFiltres;
+        private System.Windows.Forms.GroupBox groupAffichages;
+        private System.Windows.Forms.Panel panelAffichages;
     }
 }

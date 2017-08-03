@@ -28,10 +28,20 @@ namespace projet_lnSearch.donnees {
                     XmlElement root = document.DocumentElement;
                     document.InsertBefore(xmlDeclaration, root);
 
+                    string nomRoot;
+                    if (nom.Equals(VarUtiles.Conf + "conf.xml")) {
+                        nomRoot = "config";
+                    } else {
+                        nomRoot = "data";
+                    }
+
+                    root = document.CreateElement(string.Empty, nomRoot, string.Empty);
+                    document.AppendChild(root);
+
                     document.Save(cheminDoc);
                 }
             } catch (Exception ex) {
-                Debug.Write(ex.Message + Environment.NewLine);
+                Debug.Write(ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine);
                 document = null;
             }
         }

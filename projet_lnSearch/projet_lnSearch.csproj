@@ -68,6 +68,7 @@
     <Compile Include="application\Controleur.cs" />
     <Compile Include="application\EtatApp.cs" />
     <Compile Include="application\VarUtiles.cs" />
+    <Compile Include="metier\DonneesFichier.cs" />
     <Compile Include="donnees\RedacteurDataXML.cs" />
     <Compile Include="donnees\FichierXML.cs" />
     <Compile Include="donnees\LecteurConfXML.cs" />
