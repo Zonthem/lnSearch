@@ -80,7 +80,7 @@ namespace projet_lnSearch.fenetres {
             filtrePanel.Controls.Add(lbl);
         }
 
-        internal void AddFiltreCombo(string key, SortedSet<string> values) {
+        internal void AddFiltreCombo(string key, List<string> values) {
             ComboBox cmb = new ComboBox();
             cmb.FormattingEnabled = true;
             values.Remove("combo");

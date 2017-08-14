@@ -2,7 +2,9 @@
 using projet_lnSearch.donnees;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace projet_lnSearch.fenetres {
@@ -69,12 +71,12 @@ namespace projet_lnSearch.fenetres {
         }
 
         private void button1_Click(object sender, EventArgs e) {
-            Dictionary<string, SortedSet<string>> dictFiltres = new Dictionary<string, SortedSet<string>>();
+            Dictionary<string, List<string>> dictFiltres = new Dictionary<string, List<string>>();
 
             //preparer lectPDF pour une seule utilisation
             //Wait, c'est pas à FenConfig d'écrire les XML nan ?
             foreach (Control c in panelFiltres.Controls) {
-                if (c is ComboBox) {
+                if (c is ComboBox && !((ComboBox)c).SelectedItem.Equals(VarUtiles.ComboValeurNulle)) {
                     if (((ComboBox)c).SelectedItem.Equals("Liste")) {
                         red.AddRechercheCombo(c.Name);
                     }
@@ -85,9 +87,11 @@ namespace projet_lnSearch.fenetres {
                 if (((CheckBox)c).Checked) red.AddAffich(c.Text);
             }
             //Mettre un message d'attente ICI
+            /*Thread th = new Thread(new ThreadStart(red.StartProcessing));
+            th.Start();*/
             red.StartProcessing();
-
-            MessageBox.Show("Valide pas, ça sert à rien !");
+            ConfigurationManager.AppSettings["modeCreation"] = "non";
+            MessageBox.Show("Fini wesh maggle!");
         }
 
         private void FenConfig_FormClosed(object sender, FormClosedEventArgs e) {

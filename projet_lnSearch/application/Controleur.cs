@@ -50,7 +50,7 @@ namespace projet_lnSearch.application {
         }
 
         internal void initFiltres() {
-             foreach(KeyValuePair<string, SortedSet<string>> element in filtre.ListeFiltres) {
+             foreach(KeyValuePair<string, List<string>> element in filtre.ListeFiltres) {
                 if (element.Value.ElementAt(0).Equals("text")) {
                     acc.AddFiltreTexte(element.Key);
                 } else if (element.Value.ElementAt(0).Equals("combo")) {
@@ -64,23 +64,6 @@ namespace projet_lnSearch.application {
         public Accueil setAccueil(Accueil a) {
             acc = a;
             return acc;
-        }
-
-        public void bg_DoWork(object sender, DoWorkEventArgs e) {
-            if (e.Argument.Equals("fin")) {
-                if (data.Res.Count == 0) {
-                    MessageBox.Show("Aucun document trouvé !");
-                    return;
-                }
-                acc.Invoke(new Action(() => {
-                    new FenResultat(data.Res).Show();
-                }));
-                
-            } else if (e.Argument.Equals("erreur")) {
-                Debug.Write(data.Erreur);
-            } else if (e.Argument.Equals("ImporterDonnees")) {
-                acc.AfficheMessage(lectPDF.Err);
-            }
         }
 
         /// <summary>
@@ -99,6 +82,25 @@ namespace projet_lnSearch.application {
         internal List<string> getFiltresPossibles() {
             return Redacteur.getFiltresPossibles();
             //return a;
+        }
+
+        public void bg_DoWork(object sender, DoWorkEventArgs e) {
+            if (e.Argument.Equals("fin")) {
+                if (data.Res.Count == 0) {
+                    MessageBox.Show("Aucun document trouvé !");
+                    return;
+                }
+                acc.Invoke(new Action(() => {
+                    new FenResultat(data.Res).Show();
+                }));
+
+            }
+            else if (e.Argument.Equals("erreur")) {
+                Debug.Write(data.Erreur);
+            }
+            else if (e.Argument.Equals("ImporterDonnees")) {
+                acc.AfficheMessage(lectPDF.Err);
+            }
         }
     }
 }

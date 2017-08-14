@@ -15,12 +15,12 @@ namespace projet_lnSearch.donnees {
 
         internal string Erreur { get; private set; }
 
-        public LecteurDataXML(bool creation = false) : base(VarUtiles.Conf + "data.xml", creation) {
+        public LecteurDataXML() : base(VarUtiles.Conf + "data.xml") {
 
         }
 
         public void Filtrer(object valeursFiltres) {
-            try {
+            /*try {*/
                 Dictionary<string, string> valeurs = valeursFiltres as Dictionary<string, string>;
                 Res = new Resultat();
                 Dictionary<string, string> dataAjout;
@@ -67,13 +67,13 @@ namespace projet_lnSearch.donnees {
 
                 Runner._bg.RunWorkerAsync("fin");
 
-            } catch (Exception ex) {
+            /*} catch (Exception ex) {
 
-                Erreur = ex.Message;
+                Erreur = ex.Message + Environment.NewLine + ex.;
                 if (!Runner._bg.IsBusy) {
                     Runner._bg.RunWorkerAsync("erreur");
                 }
-            }
+            }*/
         }
 
         private bool FiltreAccepte(string valeurTemporaire, string value) {
@@ -81,10 +81,10 @@ namespace projet_lnSearch.donnees {
 
             if (valeurTemporaire.Equals(value)) return true;
 
-            if (valeurTemporaire[0].Equals("<") || valeurTemporaire[0].Equals(">") || valeurTemporaire[0].Equals("&")) {
-                if (valeurTemporaire[0].Equals("<")) {
+            if (valeurTemporaire[0] == '<' || valeurTemporaire[0] == '>' || valeurTemporaire[0] == '&') {
+                if (valeurTemporaire[0] == '<') {
                     return (int.Parse(value) < int.Parse(valeurTemporaire.Substring(1)));
-                } else if (valeurTemporaire[0].Equals(">")) {
+                } else if (valeurTemporaire[0] == '>') {
                     return (int.Parse(value) > int.Parse(valeurTemporaire.Substring(1)));
                 } else {
                     return ((int.Parse(value) < int.Parse(valeurTemporaire.Substring(1,8)) &&

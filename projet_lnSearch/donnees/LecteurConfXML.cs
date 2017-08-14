@@ -15,30 +15,30 @@ namespace projet_lnSearch.donnees {
 
         private int NbFiltresEntres { get; set; }
 
-        public Dictionary<string, SortedSet<string>> ListeFiltres { get; }
+        public Dictionary<string, List<string>> ListeFiltres { get; }
 
         public List<string> ListeAffichage { get; }
 
         /// <summary>
         /// Contructeur en lecture seule, ne crée pas de fichier si il n'existe pas
         /// </summary>
-        public LecteurConfXML(bool creation = false) : base(VarUtiles.Conf + "conf.xml", creation) {
+        public LecteurConfXML() : base(VarUtiles.Conf + "conf.xml") {
             if (document != null) {
-                ListeFiltres = new Dictionary<string, SortedSet<string>>();
+                ListeFiltres = new Dictionary<string, List<string>>();
                 ListeAffichage = new List<string>();
-                SortedSet<string> sset;
+                List<string> sset;
 
                 foreach (XmlNode node in document.GetElementsByTagName("filtre")) {
-                    if (node.Attributes["value"].Value.Equals("text")) {
+                    if (node.Attributes["value"].Value.Equals("Texte")) {
 
-                        sset = new SortedSet<string>();
+                        sset = new List<string>();
                         sset.Add("text");
                         ListeFiltres.Add(node.Attributes["key"].Value, sset);
 
                     }
-                    else if (node.Attributes["value"].Value.Equals("combo")) {
+                    else if (node.Attributes["value"].Value.Equals("Liste")) {
 
-                        sset = new SortedSet<string>();
+                        sset = new List<string>();
                         sset.Add("combo");
                         foreach (XmlNode ssNode in node.ChildNodes) {
                             sset.Add(ssNode.Attributes["value"].Value);
@@ -46,9 +46,9 @@ namespace projet_lnSearch.donnees {
                         ListeFiltres.Add(node.Attributes["key"].Value, sset);
 
                     }
-                    else if (node.Attributes["value"].Value.Equals("date")) {
+                    else if (node.Attributes["value"].Value.Equals("Date")) {
 
-                        sset = new SortedSet<string>();
+                        sset = new List<string>();
                         sset.Add("date");
                         ListeFiltres.Add(node.Attributes["key"].Value, sset);
 

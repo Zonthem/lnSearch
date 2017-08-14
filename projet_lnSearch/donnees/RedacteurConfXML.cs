@@ -10,20 +10,35 @@ namespace projet_lnSearch.donnees {
 
     class RedacteurConfXML : FichierXML {
 
-        public Dictionary<string, SortedSet<string>> ListeFiltres { get; private set; }
+        public Dictionary<string, List<string>> ListeFiltres { get; private set; }
 
         public List<string> ListeAffichage { get; private set; }
 
         public RedacteurConfXML(List<string> filtres, List<string> affichage) : base(VarUtiles.Conf + "conf.xml", true) {
             ListeAffichage = affichage;
-            ListeFiltres = new Dictionary<string, SortedSet<string>>();
+            ListeFiltres = new Dictionary<string, List<string>>();
             foreach (string s in filtres) {
-                ListeFiltres.Add(s, new SortedSet<string>());
+                ListeFiltres.Add(s, new List<string>());
             }
         }
 
-        public void ModifierListeFiltres(Dictionary<string, SortedSet<string>> dict) {
+        public void ModifierListeFiltres(Dictionary<string, List<string>> dict) {
             ListeFiltres = dict;
+        }
+
+        public void ModifierListeFiltres(Dictionary<string, string> filtres, Dictionary<string, List<string>> combos) {
+            ListeFiltres = new Dictionary<string, List<string>>();
+            List<string> lst;
+            foreach (KeyValuePair<string, string> kvp in filtres) {
+                if (!kvp.Value.Equals("Liste")) {
+                    ListeFiltres.Add(kvp.Key, new List<string> { kvp.Value });
+                } else {
+                    lst = new List<string>();
+                    lst.Add(kvp.Value);
+                    lst.AddRange(combos[kvp.Key]);
+                    ListeFiltres.Add(kvp.Key, new List<string>(lst));
+                }
+            }
         }
 
         public void ModifierListeAffichage(List<string> list) {
@@ -31,8 +46,7 @@ namespace projet_lnSearch.donnees {
         }
 
         public new bool Sauvegarder() {
-            XmlElement root = document.CreateElement(string.Empty, "config", string.Empty);
-            document.AppendChild(root);
+            XmlElement root = document.DocumentElement;
             XmlElement filtres = document.CreateElement(string.Empty, "filtres", string.Empty);
             root.AppendChild(filtres);
             //add les filtres
@@ -40,7 +54,7 @@ namespace projet_lnSearch.donnees {
             XmlElement val;
             XmlAttribute key;
             XmlAttribute value;
-            foreach (KeyValuePair<string, SortedSet<string>> kvp in ListeFiltres) {
+            foreach (KeyValuePair<string, List<string>> kvp in ListeFiltres) {
                 filtre = document.CreateElement(string.Empty, "filtre", string.Empty);
 
                 key = document.CreateAttribute("key");
@@ -66,10 +80,10 @@ namespace projet_lnSearch.donnees {
             root.AppendChild(affichages);
             //add les affichages
             XmlElement aff;
-            foreach(string s in ListeAffichage) {
+            foreach (string s in ListeAffichage) {
                 aff = document.CreateElement(string.Empty, "aff", string.Empty);
                 key = document.CreateAttribute("key");
-                key.Value = s;
+                key.Value = s[0] == '/' ? s.Substring(1) : s;
                 aff.Attributes.Append(key);
                 affichages.AppendChild(aff);
             }

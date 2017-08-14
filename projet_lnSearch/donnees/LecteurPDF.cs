@@ -1,6 +1,7 @@
 ﻿using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using projet_lnSearch.application;
+using projet_lnSearch.metier;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -116,8 +117,73 @@ namespace projet_lnSearch.donnees {
             }
         }
 
-        public void RechercheGlobale(List<string> filtres, List<string> affichs, List<string> combos, out Dictionary<string, List<string>> listesCombo) {
-            
+        /// <summary>
+        /// Parcours tous les fichiers et recherche toutes les valeurs désirées d'un coup d'un seul
+        /// </summary>
+        /// <param name="filtres">Liste des filtres voulus</param>
+        /// <param name="affichs">Liste des valeurs a afficher</param>
+        /// <param name="combos">Liste des combobox a remplir au cours du traitement</param>
+        /// <param name="listesCombo">Accueillera le resultat de la recherche des combos</param>
+        /// <param name="listeDonnees">Accueillera les donnees en sortie de traitement (le return en gros)</param>
+        public void RechercheGlobale(List<string> filtres, List<string> affichs, List<string> combos, ref Dictionary<string, List<string>> listesCombo, ref List<DonneesFichier> listeDonnees) {
+            PdfDocument doc = PdfReader.Open(listeFichiers[0]);
+            PdfItem pi;
+            DonneesFichier df;
+            List<string> f = filtres;
+            List<string> a = affichs;
+            List<string> c = combos;
+
+            //init des cles de parcours (verification orthographique sur /)
+            for (int i = 0; i < f.Count; i++) {
+                if (!doc.Info.Elements.ContainsKey(f[i])) {
+                    f[i] = "/" + f[i];
+                }
+            }
+
+            for (int i = 0; i < a.Count; i++) {
+                if (!doc.Info.Elements.ContainsKey(a[i])) {
+                    a[i] = "/" + a[i];
+                }
+            }
+
+            for (int i = 0; i < c.Count; i++) {
+                if (!doc.Info.Elements.ContainsKey(c[i])) {
+                    c[i] = "/" + c[i];
+                }
+            }
+
+            //grosse boucle sa mere
+            //temps d'execution : de l'ordre de l'heure
+            foreach (string file in listeFichiers) {
+                doc = PdfReader.Open(file);
+                df = new DonneesFichier();
+
+                foreach (string cle in f) {
+                    if (doc.Info.Elements.TryGetValue(cle, out pi)) {
+                        df.AddFiltre(cle, pi.ToString());
+                    }
+                }
+
+                foreach (string cle in a) {
+                    if (doc.Info.Elements.TryGetValue(cle, out pi)) {
+                        df.AddDonnees(cle, pi.ToString());
+                    }
+                }
+
+                df.AddDonnees("/nom", Path.GetFileName(doc.FullPath));
+                df.AddDonnees("/path", doc.FullPath.Substring(doc.FullPath.IndexOf(VarUtiles.Donnees)));
+
+                foreach (string cle in c) {
+                    if (doc.Info.Elements.TryGetValue(cle, out pi)
+                        && !listesCombo[cle.Substring(1)].Contains(pi.ToString())) {
+
+                        listesCombo[cle.Substring(1)].Add(pi.ToString());
+                    }
+                }
+
+                listeDonnees.Add(df);
+            }
+
         }
     }
 }

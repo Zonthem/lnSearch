@@ -32,7 +32,7 @@ namespace projet_lnSearch.donnees {
             listesCombo = new Dictionary<string, List<string>>();
             listeFiltres = new Dictionary<string, string>();
             listeAffich = new List<string>();
-            listeFichier = new List<Fichier>();
+            listeFichier = new List<DonneesFichier>();
         }
 
         public bool SetFiltres() {
@@ -52,7 +52,7 @@ namespace projet_lnSearch.donnees {
         }
 
         internal void AddRechercheCombo(string cle) {
-            listesCombo.Add(cle, null);
+            listesCombo.Add(cle, new List<string>());
         }
 
         internal void AddFiltre(string cle, string forme) {
@@ -65,7 +65,14 @@ namespace projet_lnSearch.donnees {
 
         internal void StartProcessing() {
             lectPDF.RechercheGlobale(new List<string>(listeFiltres.Keys), listeAffich, new List<string>(listesCombo.Keys),
-                out listesCombo);
+                ref listesCombo, ref listeFichier);
+
+            dXml.AddData(listeFichier);
+            dXml.Sauvegarder();
+
+            fXml.ModifierListeAffichage(listeAffich);
+            fXml.ModifierListeFiltres(listeFiltres, listesCombo);
+            fXml.Sauvegarder();
         }
     }
 }

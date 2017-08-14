@@ -13,5 +13,26 @@ namespace projet_lnSearch.metier {
             donnees = d;
         }
 
+        public DonneesFichier() {
+            filtres = new Dictionary<string, string>();
+            donnees = new Dictionary<string, string>();
+        }
+
+        public void AddFiltre(string cle, string val) {
+            filtres.Add(cle, val);
+        }
+
+        public void AddDonnees(string cle, string val) {
+            donnees.Add(cle, val);
+        }
+
+        public Dictionary<string, string> GetDonnees() {
+            return donnees;
+        }
+
+        public Dictionary<string, string> GetFiltres() {
+            return filtres;
+        }
+
     }
 }
